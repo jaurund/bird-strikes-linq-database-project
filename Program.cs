@@ -11,25 +11,27 @@ class Program
         // Ensure the file exists before reading
         if (File.Exists("database.csv"))
         {
-            Console.WriteLine("Reading specific rows from database.csv...");
-            ReadSpecificRows();
+            FindSully();
         }
         else
         {
             Console.WriteLine("File database.csv does not exist.");
         }
-    }
 
-    static void ReadSpecificRows()
-    {
-        var lines = File.ReadAllLines("database.csv");
-        var specificRows = lines.Where(line => line.Contains("258272")); // Replace "specificKeyword" with your search term
-
-        foreach (var row in specificRows)
+        bool FindSully()
         {
-            Console.WriteLine(row);
-        }
+            Console.WriteLine("Search for Sully:");
+            if (Console.ReadLine() == "sully")
+            {
+                var lines = File.ReadAllLines("database.csv");
+                var specificRows = lines.Where(line => line.Contains("258272")); // Replace "specificKeyword" with your search term
 
+                foreach (var row in specificRows)
+                {
+                    Console.WriteLine(row);
+                }
+            }
+            return false;
+        }
     }
 }
-
