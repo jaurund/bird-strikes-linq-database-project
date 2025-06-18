@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 using Spectre.Console;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 // This program reads a CSV file and prints specific rows in tables based on a keyword search.
 
 class Program
@@ -11,27 +13,63 @@ class Program
         // Ensure the file exists before reading
         if (File.Exists("database.csv"))
         {
-            FindSully();
+            AnsiConsole.Markup("[bold red]Reading database.csv...[/]");
+        }
+        var sully = new SullyFinder();
+        sully.findSully();
+    }
+}
+
+public class SullyFinder
+{
+    public bool findSully()
+    {
+        Console.WriteLine("findSully was called");
+        AnsiConsole.MarkupLine("Search for Sully:");
+        
+        string input = Console.ReadLine();
+
+        if (input?.ToLower() == "sully") // use the variable
+        {
+            var lines = File.ReadAllLines("database.csv");
+            var specificRows = lines.Where(line => line.Contains("258272"));
+
+            foreach (var row in specificRows)
+            {
+                AnsiConsole.MarkupLine($"[green]{row}[/]");
+            }
+
+            return true;
+        }
+
+        AnsiConsole.MarkupLine("[red]No match found or input wasn't 'sully'.[/]");
+        return false;
+    }
+}
+
+
+/*public class SullyFinder
+{
+    public bool findSully()
+    {
+        Console.WriteLine("findSully was called");
+        AnsiConsole.MarkupLine("Search for Sully:");
+        
+        if (Console.ReadLine() == "sully")
+
+        {
+            var lines = File.ReadAllLines("database.csv");
+            var specificRows = lines.Where(line => line.Contains("258272")); // Replace "specificKeyword" with your search term
+
+            foreach (var row in specificRows)
+            {
+                AnsiConsole.Markup(row);
+            }
         }
         else
         {
-            Console.WriteLine("File database.csv does not exist.");
+            AnsiConsole.MarkupLine("Sully not found.");
         }
-
-        bool FindSully()
-        {
-            Console.WriteLine("Search for Sully:");
-            if (Console.ReadLine() == "sully")
-            {
-                var lines = File.ReadAllLines("database.csv");
-                var specificRows = lines.Where(line => line.Contains("258272")); // Replace "specificKeyword" with your search term
-
-                foreach (var row in specificRows)
-                {
-                    Console.WriteLine(row);
-                }
-            }
-            return false;
-        }
+        return false;
     }
-}
+}*/
