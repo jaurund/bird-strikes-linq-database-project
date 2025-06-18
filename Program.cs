@@ -13,37 +13,10 @@ class Program
         // Ensure the file exists before reading
         if (File.Exists("database.csv"))
         {
-            AnsiConsole.Markup("[bold red]Reading database.csv...[/]");
+            AnsiConsole.MarkupLine("[bold red]Reading database.csv...[/]");
         }
         var sully = new SullyFinder();
         sully.findSully();
-    }
-}
-
-public class SullyFinder
-{
-    public bool findSully()
-    {
-        Console.WriteLine("findSully was called");
-        AnsiConsole.MarkupLine("Search for Sully:");
-        
-        string input = Console.ReadLine();
-
-        if (input?.ToLower() == "sully") // use the variable
-        {
-            var lines = File.ReadAllLines("database.csv");
-            var specificRows = lines.Where(line => line.Contains("258272"));
-
-            foreach (var row in specificRows)
-            {
-                AnsiConsole.MarkupLine($"[green]{row}[/]");
-            }
-
-            return true;
-        }
-
-        AnsiConsole.MarkupLine("[red]No match found or input wasn't 'sully'.[/]");
-        return false;
     }
 }
 
