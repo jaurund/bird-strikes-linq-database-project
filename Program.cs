@@ -16,33 +16,9 @@ class Program
             AnsiConsole.MarkupLine("[bold red]Reading database.csv...[/]");
         }
         var sully = new SullyFinder();
-        sully.findSully();
+        var resultRows = sully.FindSully();
+
+        var printer = new TablePrinter();
+        printer.PrintTable(resultRows);
     }
 }
-
-
-/*public class SullyFinder
-{
-    public bool findSully()
-    {
-        Console.WriteLine("findSully was called");
-        AnsiConsole.MarkupLine("Search for Sully:");
-        
-        if (Console.ReadLine() == "sully")
-
-        {
-            var lines = File.ReadAllLines("database.csv");
-            var specificRows = lines.Where(line => line.Contains("258272")); // Replace "specificKeyword" with your search term
-
-            foreach (var row in specificRows)
-            {
-                AnsiConsole.Markup(row);
-            }
-        }
-        else
-        {
-            AnsiConsole.MarkupLine("Sully not found.");
-        }
-        return false;
-    }
-}*/

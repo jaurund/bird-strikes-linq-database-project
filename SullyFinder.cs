@@ -7,26 +7,23 @@ using Microsoft.VisualBasic;
 
 public class SullyFinder
 {
-    public bool findSully()
+    public List<string> FindSully()
     {
         AnsiConsole.MarkupLine("Search for Sully:");
-
         string input = Console.ReadLine();
 
         if (input?.ToLower() == "sully") // use the variable
         {
             var lines = File.ReadAllLines("database.csv");
-            var specificRows = lines.Where(line => line.Contains("258272"));
+            var matches = lines
+                .Where(line => line.Contains("258272"))
+                .ToList();
 
-            foreach (var row in specificRows)
-            {
-                AnsiConsole.MarkupLine($"[green]{row}[/]");
-            }
-
-            return true;
+            return matches;
         }
 
+
         AnsiConsole.MarkupLine("[red]No match found or input wasn't 'sully'.[/]");
-        return false;
+        return new List<string>();
     }
 }
