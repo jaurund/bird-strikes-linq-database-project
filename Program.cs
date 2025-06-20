@@ -16,7 +16,7 @@ class Program
             AnsiConsole.MarkupLine("[bold red]Reading database.csv...[/]");
         }
         var sully = new SullyFinder();
-        var resultRows = sully.FindSully();
+        List<BirdStrikeRecord> resultRows = sully.FindSully();
 
         var printer = new TablePrinter();
         printer.PrintTable(resultRows);
