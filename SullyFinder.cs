@@ -9,7 +9,6 @@ public class SullyFinder
 {
     public List<BirdStrikeRecord> FindSully()
     {
-        AnsiConsole.MarkupLine("Search for Sully:");
         string? input = Console.ReadLine(); // Nullable string
         if (string.IsNullOrWhiteSpace(input))
         {
