@@ -1,11 +1,10 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using Spectre.Console;
 using System.Threading.Tasks;
+using Spectre.Console;
 using DateTime = System.DateTime;
-using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
 
 public class SullyFinder // lets user search for the "Sully" bird strike, matches "sully" to indident number "258272" in the database
 {
@@ -27,25 +26,45 @@ public class SullyFinder // lets user search for the "Sully" bird strike, matche
     }
 }
 
-public static class DateParser
+public class DateParser
 {
-    public static DateTime? TryParseFlexibleDate(string input)
+    private static readonly string[] supportedFormats = new[]
     {
-        if (DateTime.TryParse(input, out DateTime result))
+        "yyyy-MM-dd",
+        "MM/dd/yyyy",
+        "dd/MM/yyyy",
+        "yyyy/MM/dd",
+        "MM-dd-yyyy",
+        "dd-MM-yyyy",
+    };
+
+    public bool TryParseFlexibleDate(string input, out DateTime? result)
+    {
+        result = null;
+
+        if (DateTime.TryParse(input, out DateTime tempResult))
         {
-            return result;
+            result = tempResult;
+            return true;
         }
 
-        if (DateTime.TryParseExact(input, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces, out DateTime result))
+        foreach (var format in supportedFormats)
         {
-            return result;
+            if (
+                DateTime.TryParseExact(
+                    input,
+                    format,
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.AllowWhiteSpaces,
+                    out DateTime tempResult
+                )
+            )
+            {
+                result = tempResult;
+                return true;
+            }
         }
 
-        public static string? input = Console.ReadLine();
-        {
-            
-        }
-
-return null;
+        return false;
     }
 }
