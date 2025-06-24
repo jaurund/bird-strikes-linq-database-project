@@ -13,7 +13,7 @@ public class BirdStrikeSearcher
     {
         allRecords = File.ReadAllLines(csvPath)
         .Skip(1) // Skip header row
-        .Select(BirdStrikeSearcher.FromCsv)
+        .Select(BirdStrikeRecord.FromCsv)
         .ToList();
     }
 

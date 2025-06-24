@@ -1,4 +1,5 @@
 ﻿using System;
+using CsvHelper;
 using Spectre.Console;
 
 // This program reads a CSV file and prints specific rows in tables based on a keyword search.
@@ -12,8 +13,9 @@ class Program
         {
             AnsiConsole.MarkupLine("[bold red]Reading database.csv...[/]");
         }
-        var sully = new SullyFinder();
-        List<BirdStrikeRecord> resultRows = sully.FindSully();
+        var CSVreader = new BirdStrikeSearcher("database.csv");
+        var resultRows = CSVreader.SearchByKeyword("gull");
+
 
         var printer = new TablePrinter();
         printer.PrintTable(resultRows);
