@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Spectre.Console;
 
@@ -14,20 +15,22 @@ public class TablePrinter
 
         var table = new Table().Border(TableBorder.Rounded).Title("[yellow]Bird Strike Records[/]");
 
-        // Add headers
         table.AddColumn("Record ID");
         table.AddColumn("Year");
+        table.AddColumn("Month");
+        table.AddColumn("Day");
         table.AddColumn("Operator");
         table.AddColumn("Aircraft");
         table.AddColumn("Airport");
         table.AddColumn("Species");
 
-        // CHANGED: Using object properties instead of splitting CSV
         foreach (var record in records)
         {
             table.AddRow(
                 record.RecordId.ToString(),
                 record.Year.ToString(),
+                record.Month.ToString(),
+                record.Day.ToString(),
                 record.Operator,
                 record.Aircraft,
                 record.Airport,
@@ -48,6 +51,9 @@ public class BirdStrikeRecord
 {
     public int RecordId { get; set; }
     public int Year { get; set; }
+    public int Month { get; set; }
+    public int Day { get; set; }
+    public DateTime? IncidentDate { get; set; } // new property
     public string Operator { get; set; }
     public string Aircraft { get; set; }
     public string Airport { get; set; }
@@ -57,15 +63,35 @@ public class BirdStrikeRecord
     {
         var columns = csvLine.Split(',');
 
+        // Parsing year/month/day separately
+        bool parsedYear = int.TryParse(columns[1], out int year);
+        bool parsedMonth = int.TryParse(columns[2], out int month);
+        bool parsedDay = int.TryParse(columns[3], out int day);
+
+        DateTime? date = null;
+        if (parsedYear && parsedMonth && parsedDay)
+        {
+            try
+            {
+                date = new DateTime(year, month, day);
+            }
+            catch
+            {
+                // Handle potential exceptions
+                date = null;
+            }
+        }
+
         return new BirdStrikeRecord
         {
             RecordId = int.Parse(columns[0]),
-            Year = int.Parse(columns[1]),
+            Year = year,
+            Month = month,
+            Day = day,
             Operator = columns[5],
             Aircraft = columns[6],
             Airport = columns[20],
-            Species = columns[32]
+            Species = columns[32],
         };
     }
 }
-

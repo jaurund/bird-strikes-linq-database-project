@@ -1,9 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using Spectre.Console;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic;
+
 // This program reads a CSV file and prints specific rows in tables based on a keyword search.
 
 class Program
