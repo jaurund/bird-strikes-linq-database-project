@@ -13,7 +13,7 @@ class Program
         {
             AnsiConsole.MarkupLine("[bold red]Reading database.csv...[/]");
         }
-        var CSVreader = new BirdStrikeSearcher("database.csv");
+        var CSVreader = new DatabaseSearcher("database.csv");
         var resultRows = CSVreader.SearchByKeyword("gull");
 
 
