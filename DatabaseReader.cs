@@ -54,10 +54,10 @@ public class BirdStrikeRecord
     public int Month { get; set; }
     public int Day { get; set; }
     public DateTime? IncidentDate { get; set; } // new property
-    public string Operator { get; set; }
-    public string Aircraft { get; set; }
-    public string Airport { get; set; }
-    public string Species { get; set; }
+    public required string Operator { get; set; }
+    public required string Aircraft { get; set; }
+    public required string Airport { get; set; }
+    public required string Species { get; set; }
 
     public static BirdStrikeRecord FromCsv(string csvLine)
     {

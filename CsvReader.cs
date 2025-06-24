@@ -41,7 +41,7 @@ public class BirdStrikeSearcher
                         r.Species.Contains(keyword, StringComparison.OrdinalIgnoreCase))
             .ToList();
     }
-    public BirdStrikeRecord SearchSully()
+    public BirdStrikeRecord? SearchSully()
     {
         return allRecords.FirstOrDefault(r => r.RecordId == 258272);
     }
