@@ -1,5 +1,7 @@
 using System;
 using System.Threading;
+Console.OutputEncoding = System.Text.Encoding.UTF8;
+
 
 // This code is part of a text effects library that simulates a typewriter effect in the console.
 public class TextEffects
