@@ -8,6 +8,8 @@ class Program
 {
     static void Main(string[] args)
     {
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+
         // Ensure the file exists before reading
         if (File.Exists("database.csv"))
         {
