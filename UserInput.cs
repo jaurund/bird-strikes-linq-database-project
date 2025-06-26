@@ -17,13 +17,10 @@ public class UserInput
         Console.WriteLine("\n");
         Console.WriteLine("Suggested keywords for searching can be a specific date or date range, animal species, aircraft type or airline.");
         Console.WriteLine("All date formats supported by the .NET framework are accepted, including 'dd/MM/yyyy', 'MM/dd/yyyy', 'yyyy-MM-dd', etc.");
-        Console.WriteLine("Type below to start searching:");
-        Console.WriteLine("\n");
     }
 
     public static string GetKeyword()
     {
-        Console.Write("Enter a keyword to search: ");
         string input = Console.ReadLine()?.Trim() ?? string.Empty;
 
         // Validate input: must be at least 3 characters long and contain only letters, numbers, or spaces
