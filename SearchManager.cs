@@ -13,4 +13,23 @@ public class SearchManager
     {
         OnSearchInput?.Invoke(input);
     }
+
 }
+
+
+
+
+
+/*searchManager.OnSearchInput += (input) =>
+        {
+            if (input.Equals("sully", StringComparison.OrdinalIgnoreCase))
+            {
+                var sully = db.SearchSully();
+                if (sully != null) printer.PrintTable(new List<DatabaseRecord> { sully });
+                else Console.WriteLine("Sully record not found.");
+                return;
+            }
+
+            var results = db.SearchByKeyword(input);
+            printer.PrintTable(results);
+        };*/
