@@ -12,48 +12,72 @@ class Program
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
         // Ensure the file exists before reading
-        if (File.Exists("database.csv"))
-        {
-            TextEffects.TypeWriter("\u001b[1;31mReading database.csv...\u001b[0m"); // bold red ANSI escape code
-            Thread.Sleep(1000); // Simulate a delay for reading the file          
-        }
-
-        else
+        if (!File.Exists("database.csv"))
         {
             Console.WriteLine("Error: database.csv not found.");
-            Console.WriteLine("Press esc to exit.");
-
-            if (Console.ReadKey().Key == ConsoleKey.Escape)
-            {
-                Environment.Exit(0);
-            }
+            Console.WriteLine("Press ESC to exit.");
+            if (Console.ReadKey().Key == ConsoleKey.Escape) Environment.Exit(0);
         }
+
+        TextEffects.TypeWriter("\u001b[1;31mReading database.csv...\u001b[0m"); // bold red ANSI escape code
+        Thread.Sleep(1000); // Simulate a delay for reading the file
         UserInput.WelcomeMessage();
 
-        // Main loop for searching, continues until user decides to exit
-        while (true)
+        var searchManager = new SearchManager();
+        var db = new DatabaseSearcher("database.csv"); // Load once
+
+
+        // Sully easter egg
+        searchManager.OnSearchInput += (input) =>
         {
-            var CSVreader = new DatabaseSearcher("database.csv");
-            Console.WriteLine("Type below to search:");
-            Console.WriteLine("\n");
-
-            string keyword = UserInput.GetKeyword();
-
-            var results = CSVreader.SearchByKeyword(keyword);
-            var printer = new TablePrinter();
-            printer.PrintTable(results);
-
-            Console.WriteLine("\nPress enter key to search again or ESC to exit.");
-            var key = Console.ReadKey(true).Key;
-
-            if (key == ConsoleKey.Enter)
+            if (input.Equals("sully", StringComparison.OrdinalIgnoreCase))
             {
-                continue;
+                var sullyRecord = db.SearchSully();
+                if (sullyRecord != null)
+                {
+                    var printer = new TablePrinter();
+                    printer.PrintTable(new List<DatabaseRecord> { sullyRecord });
+                }
+                else
+                {
+                    Console.WriteLine("Sully record not found.");
+                }
             }
-            else if (key == ConsoleKey.Escape)
+        };
+
+        searchManager.OnSearchInput += (input) =>
+        {
+            if (!input.Equals("sully", StringComparison.OrdinalIgnoreCase))
             {
-                break;
+                var results = db.SearchByKeyword(input);
+                var printer = new TablePrinter();
+                printer.PrintTable(results);
             }
-        }
+
+
+
+            while (true)
+            {
+                Console.WriteLine("Type below to search:");
+                string keyword = UserInput.GetKeyword();
+
+                searchManager.ProcessSearch(keyword);
+
+                Console.WriteLine("\nType  to search again or ESC to exit.");
+                var key = Console.ReadKey(true).Key;
+
+                if (key == ConsoleKey.Enter)
+                {
+                    // Process the search input
+                    searchManager.ProcessSearch(keyword);
+                }
+                else if (key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+            }
+
+        };
     }
 }
+
