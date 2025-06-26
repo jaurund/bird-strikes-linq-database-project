@@ -8,9 +8,9 @@ public class UserInput
     public static void WelcomeMessage()
     {
         // Console.Clear();
-        Console.WriteLine("=======================================");
-        Console.WriteLine("  Welcome to the Bird Strike Database  ");
-        Console.WriteLine("=======================================");
+        Console.WriteLine("╔════════════════════════╗");
+        Console.WriteLine("║  Welcome to BirdDB!    ║");
+        Console.WriteLine("╚════════════════════════╝");
         Console.WriteLine("\n");
         Console.WriteLine("This application allows you to search in all wildlife strike incidents with aircraft between 1990 and 2015.");
         Console.WriteLine("All results will be displayed in a table format for easy reading.");
