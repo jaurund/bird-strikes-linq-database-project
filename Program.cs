@@ -25,8 +25,6 @@ class Program
 
         var db = new DatabaseSearcher("database.csv"); // Load once
         var printer = new TablePrinter();
-        var searchManager = new SearchManager();
-
 
         // Set up search logic
 
@@ -35,7 +33,8 @@ class Program
             Console.WriteLine("\nType below to search:");
             string keyword = UserInput.GetKeyword();
 
-            searchManager.ProcessSearch(keyword);
+            db.SearchByKeyword(keyword);
+            printer.PrintTable(db.SearchByKeyword(keyword));
 
             Console.WriteLine("\nPress ESC to exit or type another keyword to search again.");
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
@@ -45,12 +44,6 @@ class Program
             }
 
         }
-
-
-
-
-
-
     }
 }
 

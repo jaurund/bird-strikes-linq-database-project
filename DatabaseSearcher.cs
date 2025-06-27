@@ -9,6 +9,27 @@ public class DatabaseSearcher
 {
     private List<DatabaseRecord> allRecords;
 
+    public void SearchInputHandler(string input)
+    {
+        // Step 1: Pass input to interpreter
+        OnSearchInput(input);
+    }
+
+    private void OnSearchInput(string input)
+    // Step 2: Interpret what kind of input it is
+    {
+        string trimmed = input.Trim().ToLower();
+        ProcessSearch(trimmed);
+    }
+
+    public void ProcessSearch(string commandType)
+    {
+        // Step 3: Perform the actual search depending on interpretation
+        Console.WriteLine($"Searching by {commandType}");
+
+        // Placeholder: insert actual logic to query your dataset here
+    }
+
     public DatabaseSearcher(string csvPath)
     {
         allRecords = File.ReadAllLines(csvPath)
